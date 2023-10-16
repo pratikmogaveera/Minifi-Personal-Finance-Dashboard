@@ -6,12 +6,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Toaster } from "sonner"
 import Footer from '@/components/Footer'
+import { constructMetadata } from '@/lib/utils'
 
 
-export const metadata: Metadata = {
-    title: 'MiniFi - Your Personal Finance Dashboard',
-    description: 'Created by Pratik Mogaveera',
-}
+export const metadata = constructMetadata()
+
 type RootPros = {
     children: React.ReactNode
 }

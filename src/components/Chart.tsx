@@ -18,30 +18,13 @@ interface ChartProps {
 }
 
 const Chart = ({ data, chartType, chartRange }: ChartProps) => {
+
     return (
         <div className='flex flex-col flex-1'>
-            {chartType === 'bar'
+            {data.length ? chartType === 'bar'
                 ? <BarChartComp data={data?.filter(item => item.date.getTime() > getChartRangeDate(chartRange).getTime())} />
                 : <LineChartComp data={data?.filter(item => item.date.getTime() > getChartRangeDate(chartRange).getTime())} />
-            }
-        </div>
-    )
-}
-
-const AreaChartComp = ({ data }: { data: Transaction[] }) => {
-    const [ref, bounds] = useMeasure()
-
-    let dataMod: Transaction[] = []
-    if (data) dataMod = data.map(item => item) // Creating deep copy of data.
-
-    return (
-        <div className='text-foreground w-full min-h-[15rem] flex-1' ref={ref}>
-            {data && data.length &&
-                <LineChart width={bounds.width} height={bounds.height} data={dataMod.sort((a, b) => a.date.getTime() - b.date.getTime())} margin={{ top: 20, right: 10, bottom: -5, left: -30 }}>
-                    <YAxis fontSize={10} />
-                    <Line type="monotone" dataKey="amount" stroke="currentColor" strokeWidth={2} />
-                    <XAxis dataKey="receiver" fontSize={10} padding={{ left: 20, right: 20 }} />
-                </LineChart>
+                : <p className='flex justify-center text-muted-foreground'>Add a transaction to begin.</p>
             }
         </div>
     )
