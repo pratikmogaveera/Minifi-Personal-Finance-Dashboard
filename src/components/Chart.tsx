@@ -21,7 +21,7 @@ const Chart = ({ data, chartType, chartRange }: ChartProps) => {
 
     return (
         <div className='flex flex-col flex-1'>
-            {data.length ? chartType === 'bar'
+            {data?.length ? chartType === 'bar'
                 ? <BarChartComp data={data?.filter(item => item.date.getTime() > getChartRangeDate(chartRange).getTime())} />
                 : <LineChartComp data={data?.filter(item => item.date.getTime() > getChartRangeDate(chartRange).getTime())} />
                 : <p className='flex justify-center text-muted-foreground'>Add a transaction to begin.</p>
