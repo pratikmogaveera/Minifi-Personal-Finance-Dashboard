@@ -20,8 +20,8 @@ const Dashboard = () => {
         <main className="mx-auto max-w-7xl p-4 md:p-10 bg-background rounded-lg mt-10">
 
             <div className="min-h-[15rem] w-[full] rounded-lg flex flex-col sm:flex-row justify-between gap-4 p-4 sm:items-center bg-neutral-100 dark:bg-neutral-900 shadow-sm">
-                <Chart data={data!} chartType={chartType} chartRange={chartRange} />
-                <DashboardTop data={data!} isLoading={isLoading} setChartType={setChartType} setChartRange={setChartRange} chartType={chartType} chartRange={chartRange} />
+                <Chart data={data ?? []} chartType={chartType} chartRange={chartRange} />
+                <DashboardTop data={data ?? []} isLoading={isLoading} setChartType={setChartType} setChartRange={setChartRange} chartType={chartType} chartRange={chartRange} />
             </div>
 
             <div className="flex items-center justify-between mt-10 ">

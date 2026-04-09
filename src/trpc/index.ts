@@ -1,38 +1,26 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { PrismaClient } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
+import { db } from '../db';
 import { privateProcedure, procedure, router } from './trpc';
-
-const db = new PrismaClient()
-
-db.$connect()
 
 export const appRouter = router({
 
     authCallback: procedure.query(async () => {
         const { getUser } = getKindeServerSession()
-        const user = getUser()
+        const user = await getUser()
 
         if (!user || !user.id || !user.email)
-            // return { success: false }
             throw new TRPCError({ code: 'UNAUTHORIZED' })
 
-        // Check if user exists in our database.
         const dbUser = await db.user.findFirst({
-            where: {
-                id: user.id
-            }
+            where: { id: user.id }
         })
 
-        if (!dbUser) {  // User signed in for the first time
-            await db.user.create({  // Create user in database
-                data: {
-                    id: user.id,
-                    email: user.email
-                }
+        if (!dbUser) {
+            await db.user.create({
+                data: { id: user.id, email: user.email }
             })
-
         }
 
         return { success: true }
@@ -40,47 +28,28 @@ export const appRouter = router({
 
     getUserData: procedure.query(async () => {
         const { getUser } = getKindeServerSession()
-        const user = getUser()
+        const user = await getUser()
 
         if (!user || !user.id || !user.email)
             throw new TRPCError({ code: "NOT_FOUND" })
 
         const dbUser = await db.user.findFirst({
-            where: {
-                id: user.id
-            }
+            where: { id: user.id }
         })
 
         return { data: dbUser }
     }),
 
     getTransactions: privateProcedure.query(async ({ ctx }) => {
-        const { userEmail } = ctx
-
-        const data = await db.transaction.findMany({
-            where: {
-                user: userEmail
-            }
+        return db.transaction.findMany({
+            where: { user: ctx.userEmail },
+            orderBy: [{ date: 'desc' }, { createdAt: 'desc' }]
         })
-
-        // Send data after sorting it in descending order.
-        data.sort((a, b) => {
-            if (b.date.getTime() === a.date.getTime())
-                return b.createdAt.getTime() - a.createdAt.getTime()
-            else
-                return b.date.getTime() - a.date.getTime()
-        })
-
-        return data
-
     }),
 
     getTransactionById: privateProcedure.input(z.string().min(1)).query(async ({ ctx, input }) => {
-        return await db.transaction.findFirst({
-            where: {
-                user: ctx.userEmail,
-                id: input
-            }
+        return db.transaction.findFirst({
+            where: { user: ctx.userEmail, id: input }
         })
     }),
 
@@ -91,35 +60,22 @@ export const appRouter = router({
         category: z.string().min(1),
         date: z.date().max(new Date()),
         description: z.string().max(100)
-    })).mutation(async (opts) => {
-        const { getUser } = getKindeServerSession()
-        const user = getUser()
-
-        if (!user || !user.id || !user.email)
-            throw new TRPCError({ code: "UNAUTHORIZED" })
-
-        const res = await db.transaction.create({
-            data: { ...opts.input, user: user.email }
+    })).mutation(async ({ ctx, input }) => {
+        await db.transaction.create({
+            data: { ...input, user: ctx.userEmail }
         })
-
         return { success: true }
     }),
 
     removeTransaction: privateProcedure.input(z.string().min(1)).mutation(async ({ ctx, input }) => {
-        const res = await db.transaction.delete({
-            where: {
-                id: input,
-                user: ctx.userEmail
-            }
-        })
-
-        if (!res)
-            throw new TRPCError({ code: "NOT_FOUND" })
-
-        if (res)
+        try {
+            await db.transaction.delete({
+                where: { id: input, user: ctx.userEmail }
+            })
             return { success: true }
-
-        return res
+        } catch {
+            throw new TRPCError({ code: "NOT_FOUND" })
+        }
     })
 });
 

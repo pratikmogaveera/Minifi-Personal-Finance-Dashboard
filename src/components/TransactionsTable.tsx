@@ -6,13 +6,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
-import { Transaction } from "@prisma/client"
+import type { Transaction } from "@prisma/client"
 import { ColumnDef, ColumnFiltersState, SortingState, VisibilityState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { addDays, format } from "date-fns"
 import { Calendar as CalendarIcon, ChevronDown, ChevronsUpDown, MoreHorizontal } from "lucide-react"
 import * as React from "react"
-import { DateRange } from "react-day-picker"
 import { toast } from 'sonner'
+import { DateRange } from "react-day-picker"
 
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -37,7 +37,7 @@ export default function TransactionsTable({ data }: { data: Transaction[] }) {
         }
     })
 
-    const columns: ColumnDef<Transaction>[] = [
+    const columns = React.useMemo<ColumnDef<Transaction>[]>(() => [
         {
             accessorKey: "index",
             header: ({ column }) => <div className="">Index</div>,
@@ -135,7 +135,7 @@ export default function TransactionsTable({ data }: { data: Transaction[] }) {
                 )
             },
         },
-    ]
+    ], [router, removeTransaction])
 
     const table = useReactTable({
         data,

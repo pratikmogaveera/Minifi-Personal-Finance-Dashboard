@@ -1,5 +1,5 @@
 import { getChartRangeDate } from '@/lib/utils';
-import { Transaction } from '@prisma/client';
+import type { Transaction } from '@prisma/client';
 import { format } from 'date-fns';
 import useMeasure from 'react-use-measure';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
@@ -34,7 +34,7 @@ const LineChartComp = ({ data }: { data: Transaction[] }) => {
     const [ref, bounds] = useMeasure()
 
     let dataMod: Transaction[] = []
-    if (data) dataMod = data.map(item => item) // Creating deep copy of data.
+    if (data) dataMod = [...data] // Shallow copy to avoid mutating the original array.
 
     return (
         <div className='text-foreground w-full min-h-[15rem] flex-1' ref={ref}>

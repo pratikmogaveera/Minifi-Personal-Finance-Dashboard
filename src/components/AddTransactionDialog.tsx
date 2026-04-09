@@ -86,12 +86,12 @@ function AddTransactionDialog() {
     const { mutateAsync: submit, isLoading } = trpc.createTransaction.useMutation({
         onSuccess: () => {
             utils.getTransactions.invalidate()
-
             toast.success("Transaction has been added.")
-
             resetForm()
-
             setIsOpen(false)
+        },
+        onError: () => {
+            toast.error("Failed to add transaction. Please try again.")
         }
     })
 

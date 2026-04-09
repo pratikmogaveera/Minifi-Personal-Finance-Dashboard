@@ -6,9 +6,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Transaction } from '@prisma/client'
+import type { Transaction } from '@prisma/client'
 import { IndianRupee } from "lucide-react"
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { Skeleton } from "./ui/skeleton"
 
 import { Button } from "@/components/ui/button"
@@ -27,15 +27,7 @@ type DashboardTopPros = {
 }
 
 const DashboardTop = ({ data, isLoading, chartType, setChartType, chartRange, setChartRange }: DashboardTopPros) => {
-    const [totalSpend, setTotalSpend] = React.useState(0)
-
-    React.useEffect(() => {
-        if (data) {
-            let spend = 0
-            data.map(item => spend += item.amount)
-            setTotalSpend(spend)
-        }
-    }, [data])
+    const totalSpend = data?.reduce((sum, item) => sum + item.amount, 0) ?? 0
 
     const amount = parseFloat(totalSpend.toString())
     const formatted = new Intl.NumberFormat("en-IN", {
