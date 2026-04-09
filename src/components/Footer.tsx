@@ -14,9 +14,9 @@ const Footer = () => {
                         </Link>
 
                         <div className='flex gap-2'>
-                            <Link className={buttonVariants({ size: "icon", variant: "outline", className: "group" })} href="https://linkedin.com/in/pratikmogaveera" target='_blank' ><Linkedin target='_blank' className='text-muted-foreground group-hover:text-brand h-5 w-5' /></Link>
-                            <Link className={buttonVariants({ size: "icon", variant: "outline", className: "group" })} href="https://github.com/pratikmogaveera" target='_blank' ><Github className='text-muted-foreground group-hover:text-brand h-5 w-5' /></Link>
-                            <Link className={buttonVariants({ size: "icon", variant: "outline", className: "group" })} href="mailto:pratikmogaveera@gmail.com" ><Mail className='text-muted-foreground group-hover:text-brand h-5 w-5' /></Link>
+                            <Link className={buttonVariants({ size: "icon", variant: "outline", className: "group" })} href="https://linkedin.com/in/pratikmogaveera" target='_blank' rel='noopener noreferrer' aria-label="Visit Pratik Mogaveera on LinkedIn"><Linkedin className='text-muted-foreground group-hover:text-brand h-5 w-5' /></Link>
+                            <Link className={buttonVariants({ size: "icon", variant: "outline", className: "group" })} href="https://github.com/pratikmogaveera" target='_blank' rel='noopener noreferrer' aria-label="Visit Pratik Mogaveera on GitHub"><Github className='text-muted-foreground group-hover:text-brand h-5 w-5' /></Link>
+                            <Link className={buttonVariants({ size: "icon", variant: "outline", className: "group" })} href="mailto:pratikmogaveera@gmail.com" aria-label="Send email to Pratik Mogaveera"><Mail className='text-muted-foreground group-hover:text-brand h-5 w-5' /></Link>
                         </div>
                     </div>
                 </div>

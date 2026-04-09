@@ -32,11 +32,15 @@ export function constructMetadata({
         title,
         description,
         openGraph: {
+            type: 'website',
+            url: 'https://minifi.vercel.app',
+            siteName: 'MiniFi',
             title,
             description,
             images: [
                 {
-                    url: image
+                    url: image,
+                    alt: title
                 }
             ]
         },

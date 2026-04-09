@@ -48,18 +48,20 @@ export default function Home() {
                     <div className='-m-2 rounded-xl flex bg-foreground/5 p-2 ring-1 ring-inset ring-foreground/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
                         <Image
                             src='/dashboard_dark.webp'
-                            alt='product preview'
+                            alt='MiniFi dashboard showing spending charts and transaction history'
                             width={1364}
                             height={866}
-                            quality={100}
+                            quality={85}
+                            priority
                             className='hidden dark:block rounded-md bg-background p-2 sm:p-8 md:p-16 shadow-2xl ring-1 ring-gray-900/10'
                         />
                         <Image
                             src='/dashboard_light.webp'
-                            alt='product preview'
+                            alt='MiniFi dashboard showing spending charts and transaction history'
                             width={1364}
                             height={866}
-                            quality={100}
+                            quality={85}
+                            priority
                             className='dark:hidden rounded-md bg-background p-2 sm:p-8 md:p-16 shadow-2xl ring-1 ring-gray-900/10'
                         />
                     </div>
@@ -87,9 +89,9 @@ export default function Home() {
 
 
             <MaxWidthWrapper className="relative z-10 mt-32 flex flex-col items-center justify-center text-center">
-                <h1 className="max-w-4xl text-2xl font-bold md:text-4xl lg:text-5xl text-foreground">
+                <h2 className="max-w-4xl text-2xl font-bold md:text-4xl lg:text-5xl text-foreground">
                     Start tracking in minutes.
-                </h1>
+                </h2>
                 <p className="mt-5 max-w-prose text-sm leading-tight text-foreground/70 sm:text-lg">Experience the convenience of tracking your finances like never before. Our dashboard empowers you to effortlessly add transactions and view your financial history.</p>
                 <div className="mt-16">
                     <ul className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -119,18 +121,18 @@ export default function Home() {
                     <div className='-m-2 rounded-xl flex bg-foreground/5 p-2 ring-1 ring-inset ring-foreground/10 lg:-m-4 lg:rounded-2xl lg:p-4'>
                         <Image
                             src='/add_transaction_dark.webp'
-                            alt='product preview'
+                            alt='MiniFi add transaction dialog with form fields'
                             width={1364}
                             height={866}
-                            quality={100}
+                            quality={85}
                             className='hidden dark:block rounded-md bg-background p-2 sm:p-8 md:p-16 shadow-2xl ring-1 ring-gray-900/10'
                         />
                         <Image
                             src='/add_transaction_light.webp'
-                            alt='product preview'
+                            alt='MiniFi add transaction dialog with form fields'
                             width={1364}
                             height={866}
-                            quality={100}
+                            quality={85}
                             className='dark:hidden rounded-md bg-background p-2 sm:p-8 md:p-16 shadow-2xl ring-1 ring-gray-900/10'
                         />
                     </div>

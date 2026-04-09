@@ -1,6 +1,9 @@
 import Dashboard from "@/components/Dashboard"
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import { redirect } from "next/navigation"
+import { constructMetadata } from "@/lib/utils"
+
+export const metadata = constructMetadata({ title: 'Dashboard - MiniFi', noIndex: true })
 
 const Page = async () => {
     const { getUser } = getKindeServerSession()
