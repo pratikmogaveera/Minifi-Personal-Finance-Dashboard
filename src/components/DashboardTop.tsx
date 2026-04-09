@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import type { Transaction } from '@prisma/client'
 import { IndianRupee } from "lucide-react"
-import { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import { Skeleton } from "./ui/skeleton"
 
 import { Button } from "@/components/ui/button"
@@ -26,7 +26,7 @@ type DashboardTopPros = {
     chartRange: ChartRangeType
 }
 
-const DashboardTop = ({ data, isLoading, chartType, setChartType, chartRange, setChartRange }: DashboardTopPros) => {
+const DashboardTop = ({ data, isLoading, setChartType, setChartRange }: DashboardTopPros) => {
     const totalSpend = data?.reduce((sum, item) => sum + item.amount, 0) ?? 0
 
     const amount = parseFloat(totalSpend.toString())

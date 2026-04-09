@@ -2,7 +2,6 @@ import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
 import ThemeProvider from '@/components/ui/theme-provider'
 import { cn } from '@/lib/utils'
-import type { Metadata } from 'next'
 import { Lato } from 'next/font/google'
 import './globals.css'
 import { Toaster } from "sonner"

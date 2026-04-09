@@ -4,7 +4,6 @@ import MaxWidthWrapper from "./MaxWidthWrapper"
 import UserIcon from "./UserIcon"
 import DarkMode from "./ui/DarkMode"
 import { buttonVariants } from "./ui/button"
-import { ArrowRight } from 'lucide-react'
 
 const Navbar = async () => {
     const { getUser } = getKindeServerSession()

@@ -3,7 +3,8 @@ import { trpc } from "@/app/_trpc/client"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { httpBatchLink } from "@trpc/client"
 import { absoluteUrl } from '@/lib/utils'
-import { PropsWithChildren, useState } from "react"
+import type { PropsWithChildren } from "react"
+import { useState } from "react"
 import superjson from "superjson"
 
 const Providers = ({ children }: PropsWithChildren) => {

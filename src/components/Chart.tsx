@@ -50,7 +50,7 @@ const LineChartComp = ({ data }: { data: Transaction[] }) => {
 
 const BarChartComp = ({ data }: { data: Transaction[] }) => {
     const [ref, bounds] = useMeasure()
-    let db: map = {}
+    const db: map = {}
 
     // Grouping amount spend based on months.
     if (data) data.forEach(item => {
